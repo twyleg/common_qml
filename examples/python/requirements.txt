@@ -1,0 +1,2 @@
+../../
+simple-python-app-qt~=0.0.4

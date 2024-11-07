@@ -1,9 +1,9 @@
 include README.md
 include LICENSE
 include requirements.txt
-graft template_project_python
+graft common_qml
 recursive-exclude * *.py[co]
 include versioneer.py
-include template_project_python/py.typed
-include template_project_python/_version.py
-include template_project_python/resources/*.txt
+include common_qml/py.typed
+include common_qml/_version.py
+include common_qml/qml/*
