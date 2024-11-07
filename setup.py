@@ -28,6 +28,6 @@ setup(
     long_description_content_type="text/markdown",
     include_package_data=True,
     install_requires=[
-        "pyside6~=6.7.2"
+        "pyside6"
     ],
 )
