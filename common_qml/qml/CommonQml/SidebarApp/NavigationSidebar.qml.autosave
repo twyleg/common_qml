@@ -51,7 +51,6 @@ Rectangle {
         var button = buttonComponent.createObject(column, {"view": view})
 
         button.onClicked.connect(function (){
-            // activateView(view)
             activateViewRequested(view)
         });
 

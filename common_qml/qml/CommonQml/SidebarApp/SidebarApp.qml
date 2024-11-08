@@ -10,6 +10,7 @@ Item {
     id: appView
 
     default property alias data: content.data
+    property SidebarAppView activeView
 
     signal closeViewRequested(view: SidebarAppView)
 
@@ -19,6 +20,9 @@ Item {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
+
+        onActivateViewRequested: (view) => activateView(view)
+        onCloseViewRequested: (view) => closeView(view)
     }
 
     Item {
@@ -33,63 +37,37 @@ Item {
     }
 
     function activateView(view) {
-        for (var i=0; i<content.data.length; i++) {
-            content.data[i].visible = content.data[i] === view
+        if (activeView) {
+            activeView.visible = false
         }
+        view.visible = true
+        activeView = view
+        navigationSidebar.activateButton(view)
 
-        for (var i=0; i<navigationSidebar.topColumn.data.length; i++) {
-            var elem = navigationSidebar.topColumn.data[i]
-            if (elem instanceof NavigationSidebarButton) {
-                elem.active = elem.view === view
-            }
-        }
-
-        for (var i=0; i<navigationSidebar.bottomColumn.data.length; i++) {
-            var elem = navigationSidebar.bottomColumn.data[i]
-            if (elem instanceof NavigationSidebarButton) {
-                elem.active = elem.view === view
-            }
-        }
     }
 
-
-    function addButton(view, column) {
-
-        console.log("Add button")
-
-        var buttonComponent = Qt.createComponent("NavigationSidebarButton.qml");
-        var button = buttonComponent.createObject(column, {"view": view})
-
-        button.onClicked.connect(function (){
-            activateView(view)
-        });
-
-        button.onCloseRequest.connect(function () {
-            closeProjectViewRequested(view)
-            view.destroy()
-            button.destroy()
-        })
-    }
-
-
-    function addTopButton(view) {
-        addButton(view, navigationSidebar.topColumn)
-    }
-
-    function addBottomButton(view) {
-        addButton(view, navigationSidebar.bottomColumn)
+    function closeView(view) {
+        navigationSidebar.removeButton(view)
+        view.destroy()
     }
 
     Component.onCompleted: {
 
         for (var i=0; i<content.data.length; i++) {
-            var view = content.data[i]
-            if (view.viewProperties.alignment === SidebarAppView.Alignment.Top) {
-                addTopButton(view)
-            } else {
-                addBottomButton(view)
+            var child = content.data[i]
+            if (child instanceof SidebarAppView) {
+                var view = child
+                navigationSidebar.addButton(view)
+            }
+        }
+
+        for (var i=0; i<content.data.length; i++) {
+            var child = content.data[i]
+            if (child instanceof SidebarAppView) {
+                var defaultView = content.data[i]
+                activateView(defaultView)
+                break
             }
         }
     }
-
 }
