@@ -1,2 +1,2 @@
-module TestModule
+module CommonQml.TestModule
 TestElement 0.1 TestElement.qml

@@ -18,12 +18,8 @@ class QmlApplicationCounterExample(QmlApplication):
             frontend_qml_file_path=FILE_DIR / "frontend/qml/Frontend.qml",
         )
 
-
-
     def run(self, args: argparse.Namespace) -> int:
-
         self.engine.addImportPath(COMMON_QML_IMPORT_PATH)
-
         return self.open()
 
 

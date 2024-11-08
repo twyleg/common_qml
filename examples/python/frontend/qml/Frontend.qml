@@ -3,9 +3,9 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 
-import TestModule 0.1
+import CommonQml.TestModule 0.1
+import CommonQml.SidebarApp 0.1
 
-import "items/"
 
 ApplicationWindow {
     id: window
@@ -17,20 +17,16 @@ ApplicationWindow {
 
     color: "black"
 
-    // LocalElement {
+    SidebarApp {
+        anchors.fill: parent
 
-    //     anchors.centerIn: parent
+        StartView {
+            id: startView
+        }
 
-    //     width: parent.width / 2
-    //     height: parent.height / 2
-
-    // }
-
-    TestElement {
-        anchors.centerIn: parent
-
-        width: parent.width / 2
-        height: parent.height / 2
+        SettingsView {
+            id: settingsView
+            viewProperties.alignment: SidebarAppView.Alignment.Bottom
+        }
     }
-
 }
