@@ -36,6 +36,21 @@ Item {
 
     }
 
+    Component.onCompleted: {
+
+        for (var i=0; i<content.data.length; i++) {
+            var child = content.data[i]
+            if (child instanceof SidebarAppView) {
+                var view = child
+                navigationSidebar.addButton(view)
+
+                if (activeView === null) {
+                    activateView(view)
+                }
+            }
+        }
+    }
+
     function activateView(view) {
         if (activeView) {
             activeView.visible = false
@@ -51,23 +66,4 @@ Item {
         view.destroy()
     }
 
-    Component.onCompleted: {
-
-        for (var i=0; i<content.data.length; i++) {
-            var child = content.data[i]
-            if (child instanceof SidebarAppView) {
-                var view = child
-                navigationSidebar.addButton(view)
-            }
-        }
-
-        for (var i=0; i<content.data.length; i++) {
-            var child = content.data[i]
-            if (child instanceof SidebarAppView) {
-                var defaultView = content.data[i]
-                activateView(defaultView)
-                break
-            }
-        }
-    }
 }

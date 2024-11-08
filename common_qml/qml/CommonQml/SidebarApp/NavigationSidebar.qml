@@ -10,10 +10,14 @@ Rectangle {
 
     property alias topColumn: topColumn
     property alias bottomColumn: bottomColumn
-    property int activeView: 1
+    property var activeButton
+
+    property var buttonsByView: ({})
 
     signal activateViewRequested(view: SidebarAppView)
     signal closeViewRequested(view: SidebarAppView)
+
+
 
     ColumnLayout {
         id: column
@@ -47,11 +51,13 @@ Rectangle {
 
         var column = view.viewProperties.alignment === SidebarAppView.Alignment.Top ? topColumn : bottomColumn
 
+
         var buttonComponent = Qt.createComponent("NavigationSidebarButton.qml");
         var button = buttonComponent.createObject(column, {"view": view})
 
+        buttonsByView[view] = button
+
         button.onClicked.connect(function (){
-            // activateView(view)
             activateViewRequested(view)
         });
 
@@ -61,40 +67,17 @@ Rectangle {
     }
 
     function removeButton(view) {
-        for (var i=0; i<topColumn.data.length; i++) {
-            var elem = topColumn.data[i]
-            if (elem instanceof NavigationSidebarButton) {
-                if (elem.view === view) {
-                    elem.destroy()
-                }
-            }
-        }
-
-        for (var i=0; i<bottomColumn.data.length; i++) {
-            var elem = bottomColumn.data[i]
-            if (elem instanceof NavigationSidebarButton) {
-                if (elem.view === view) {
-                    elem.destroy()
-                }
-            }
-        }
+        buttonsByView[view].destroy()
+        delete buttonsByView[view]
     }
 
     function activateButton(view) {
-
-        for (var i=0; i<topColumn.data.length; i++) {
-            var elem = topColumn.data[i]
-            if (elem instanceof NavigationSidebarButton) {
-                elem.active = elem.view === view
-            }
+        if (activeButton) {
+            activeButton.active = false
         }
-
-        for (var i=0; i<bottomColumn.data.length; i++) {
-            var elem = bottomColumn.data[i]
-            if (elem instanceof NavigationSidebarButton) {
-                elem.active = elem.view === view
-            }
-        }
+        var button = buttonsByView[view]
+        button.active = true
+        activeButton = button
     }
 
 
