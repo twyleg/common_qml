@@ -1,5 +1,5 @@
 // Copyright (C) 2024 twyleg
-import QtQuick 2.0
+import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 
@@ -11,9 +11,7 @@ Rectangle {
     width: parent.width
     height: width
 
-    property var view
-    property string name: view.viewProperties.name
-    property url iconUrl: view.viewProperties.iconUrl
+    property SidebarAppView view
 
     property color hoveredColor: "#FF5E5F60"
     property color activeColor: "#FF212222"
@@ -59,12 +57,12 @@ Rectangle {
 
             Layout.alignment: Qt.AlignHCenter
 
-            source: navigationSidebarButton.iconUrl
+            source: view.viewProperties.iconUrl
 
         }
 
         Text {
-            text: navigationSidebarButton.name
+            text: view.viewProperties.name
 
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter
@@ -89,7 +87,7 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
 
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
 
         onEntered: {
             if (!active) {
@@ -114,18 +112,19 @@ Rectangle {
                 navigationSidebarButton.clicked()
             } else if (mouse.button === Qt.RightButton) {
                 contextMenu.popup()
-            }
+            } else if(mouse.button === Qt.MiddleButton) {
+               navigationSidebarButton.closeRequest()
+           }
         }
-
-
     }
 
     Menu {
         id: contextMenu
         MenuItem {
             text: "Close"
+            enabled: view.viewProperties.closeable
             onClicked: {
-                console.debug("Close requested")
+                console.debug("Close requested by context menu: view=", view.viewProperties.name)
                 navigationSidebarButton.closeRequest()
             }
         }
@@ -133,11 +132,6 @@ Rectangle {
 
     onActiveChanged: {
         colorAnimation.stop()
-
-        if (active) {
-            color = activeColor
-        } else {
-            color = inactiveColor
-        }
+        color = active ? activeColor : inactiveColor
     }
 }

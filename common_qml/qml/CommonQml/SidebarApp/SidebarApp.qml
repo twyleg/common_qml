@@ -42,12 +42,16 @@ Item {
             var child = content.data[i]
             if (child instanceof SidebarAppView) {
                 var view = child
-                navigationSidebar.addButton(view)
-
-                if (activeView === null) {
-                    activateView(view)
-                }
+                addView(view)
             }
+        }
+    }
+
+    function addView(view) {
+        navigationSidebar.addButton(view)
+
+        if (activeView === null) {
+            activateView(view)
         }
     }
 

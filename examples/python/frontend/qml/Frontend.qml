@@ -5,7 +5,9 @@ import QtQuick.Controls 2.15
 
 import CommonQml.TestModule 0.1
 import CommonQml.SidebarApp 0.1
+import CommonQml.Icons 0.1
 
+import "./views"
 
 ApplicationWindow {
     id: window
@@ -18,10 +20,19 @@ ApplicationWindow {
     color: "black"
 
     SidebarApp {
+        id: sidebarApp
+
         anchors.fill: parent
 
         StartView {
             id: startView
+            viewProperties.closeable: false
+
+            onAddViewRequested: {
+                var fileOpenerViewComponent = Qt.createComponent("views/FileOpenerView.qml");
+                var fileOpenerView = fileOpenerViewComponent.createObject(sidebarApp, {})
+                sidebarApp.addView(fileOpenerView)
+            }
         }
 
         SettingsView {

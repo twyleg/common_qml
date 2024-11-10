@@ -6,5 +6,6 @@ Item {
     property string name
     property url iconUrl
     property int alignment: SidebarAppView.Alignment.Top
+    property bool closeable: true
 
 }

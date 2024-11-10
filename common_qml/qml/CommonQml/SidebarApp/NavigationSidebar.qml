@@ -47,7 +47,7 @@ Rectangle {
 
     function addButton(view) {
 
-        console.log("Add button")
+        console.debug("Add button for view: view=", view.viewProperties.name)
 
         var column = view.viewProperties.alignment === SidebarAppView.Alignment.Top ? topColumn : bottomColumn
 
