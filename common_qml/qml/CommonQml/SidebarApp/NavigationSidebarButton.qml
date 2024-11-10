@@ -3,7 +3,7 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 
-import CommonQml.Misc 0.1
+import CommonQml.Items 0.1
 
 Rectangle {
     id: navigationSidebarButton
@@ -113,7 +113,9 @@ Rectangle {
             } else if (mouse.button === Qt.RightButton) {
                 contextMenu.popup()
             } else if(mouse.button === Qt.MiddleButton) {
-               navigationSidebarButton.closeRequest()
+                if(view.viewProperties.closeable) {
+                    navigationSidebarButton.closeRequest()
+                }
            }
         }
     }

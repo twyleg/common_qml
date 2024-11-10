@@ -1,0 +1,3 @@
+module CommonQml.Misc
+Svg 0.1 Svg.qml
+RotatingLoadingScreen 0.1 RotatingLoadingScreen.qml
