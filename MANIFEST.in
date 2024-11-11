@@ -6,4 +6,5 @@ recursive-exclude * *.py[co]
 include versioneer.py
 include common_qml/py.typed
 include common_qml/_version.py
+include common_qml/CMakeLists.txt
 include common_qml/qml/*
