@@ -10,6 +10,7 @@ Item {
     id: appView
 
     default property alias data: content.data
+    property alias content: content
     property SidebarAppView activeView
 
     signal closeViewRequested(view: SidebarAppView)

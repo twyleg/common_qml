@@ -18,7 +18,6 @@ Rectangle {
     signal closeViewRequested(view: SidebarAppView)
 
 
-
     ColumnLayout {
         id: column
 
@@ -30,7 +29,6 @@ Rectangle {
 
             Layout.fillHeight: true
             Layout.fillWidth: true
-
             Layout.alignment: Qt.AlignTop
 
         }
@@ -40,17 +38,15 @@ Rectangle {
 
             Layout.fillWidth: true
             Layout.fillHeight: false
-
             Layout.alignment: Qt.AlignBottom
         }
     }
 
     function addButton(view) {
 
-        console.debug("Add button for view: view=", view.viewProperties.name)
+        console.debug(`Add button for view: view=${view.viewProperties.name}`)
 
         var column = view.viewProperties.alignment === SidebarAppView.Alignment.Top ? topColumn : bottomColumn
-
 
         var buttonComponent = Qt.createComponent("NavigationSidebarButton.qml");
         var button = buttonComponent.createObject(column, {"view": view})

@@ -29,9 +29,17 @@ ApplicationWindow {
 
             onAddViewRequested: {
                 var fileOpenerViewComponent = Qt.createComponent("views/FileOpenerView.qml");
-                var fileOpenerView = fileOpenerViewComponent.createObject(sidebarApp, {})
+                var fileOpenerView = fileOpenerViewComponent.createObject(sidebarApp.content, {})
                 sidebarApp.addView(fileOpenerView)
             }
+        }
+
+        FileOpenerView {
+            id: fileOpenerView
+        }
+
+        LoadingScreenView {
+            id: loadingScreenView
         }
 
         SettingsView {

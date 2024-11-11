@@ -1,5 +1,6 @@
 # Copyright (C) 2024 twyleg
 import argparse
+import logging
 from pathlib import Path
 from simple_python_app_qt.qml_application import QmlApplication
 from common_qml import COMMON_QML_IMPORT_PATH
@@ -15,6 +16,7 @@ class QmlApplicationCounterExample(QmlApplication):
             version="0.0.1",
             application_config_init_enabled=False,
             logging_logfile_output_dir=FILE_DIR / "log/",
+            logging_force_log_level=logging.DEBUG,
             frontend_qml_file_path=FILE_DIR / "frontend/qml/Frontend.qml",
         )
 
