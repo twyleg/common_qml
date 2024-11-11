@@ -31,6 +31,7 @@ ApplicationWindow {
                 var fileOpenerViewComponent = Qt.createComponent("views/FileOpenerView.qml");
                 var fileOpenerView = fileOpenerViewComponent.createObject(sidebarApp.content, {})
                 sidebarApp.addView(fileOpenerView)
+                sidebarApp.activateView(fileOpenerView)
             }
         }
 

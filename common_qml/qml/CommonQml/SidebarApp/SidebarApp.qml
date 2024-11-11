@@ -49,14 +49,18 @@ Item {
     }
 
     function addView(view) {
+        console.debug(`Adding view: name=${view.viewProperties.name}`)
         navigationSidebar.addButton(view)
 
         if (activeView === null) {
+            console.debug("No active view yet, activating new view")
             activateView(view)
         }
     }
 
     function activateView(view) {
+        console.trace()
+        console.debug(`Activating view: name=${view.viewProperties.name}`)
         if (activeView) {
             activeView.visible = false
         }
