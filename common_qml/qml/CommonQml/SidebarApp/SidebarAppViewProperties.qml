@@ -9,5 +9,6 @@ Item {
     property url iconUrl: IconLoader.getIconPath("material/radio_button_checked")
     property int alignment: SidebarAppView.Alignment.Top
     property bool closeable: true
+    property bool confirmOnClose: true
 
 }

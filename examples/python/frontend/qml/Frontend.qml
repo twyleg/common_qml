@@ -23,6 +23,8 @@ ApplicationWindow {
 
         anchors.fill: parent
 
+        defaultView: fileOpenerView
+
         StartView {
             id: startView
             viewProperties.closeable: false
@@ -31,7 +33,7 @@ ApplicationWindow {
                 var fileOpenerViewComponent = Qt.createComponent("views/FileOpenerView.qml");
                 var fileOpenerView = fileOpenerViewComponent.createObject(sidebarApp.content, {})
                 sidebarApp.addView(fileOpenerView)
-                sidebarApp.activateView(fileOpenerView)
+                sidebarApp.handleActivateViewRequest(fileOpenerView)
             }
         }
 
@@ -46,6 +48,10 @@ ApplicationWindow {
         SettingsView {
             id: settingsView
             viewProperties.alignment: SidebarAppView.Alignment.Bottom
+        }
+
+        onCloseViewRequested: (view) => {
+            console.info(`Close view requested: name=${view.viewProperties.name}`)
         }
     }
 }
