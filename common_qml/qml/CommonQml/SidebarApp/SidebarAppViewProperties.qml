@@ -11,4 +11,8 @@ Item {
     property bool closeable: true
     property bool confirmOnClose: true
 
+    property Item background: Rectangle {
+        color: "#FF2E2F30"
+    }
+
 }

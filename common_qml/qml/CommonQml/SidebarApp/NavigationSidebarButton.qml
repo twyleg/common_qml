@@ -44,21 +44,15 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-
         anchors.bottomMargin: 20
 
-
-
         Svg {
-
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.margins: 10
-
             Layout.alignment: Qt.AlignHCenter
 
             source: view.viewProperties.iconUrl
-
         }
 
         Text {
@@ -71,9 +65,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
 
             font.bold: true
-
             color: "#ffb2b2b2"
-
             clip: true
         }
     }

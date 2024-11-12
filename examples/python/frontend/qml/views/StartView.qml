@@ -10,6 +10,11 @@ BaseStartView {
 
     signal addViewRequested()
 
+
+    viewProperties.background: Rectangle {
+        color: "blue"
+    }
+
     Button {
         text: "Add view"
         onClicked: addViewRequested()
