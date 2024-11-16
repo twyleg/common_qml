@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16.3)
 
 
-project(frontend)
+project(example_frontend)
 
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/common_qml/)
