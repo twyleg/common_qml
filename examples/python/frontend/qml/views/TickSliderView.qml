@@ -12,61 +12,139 @@ SidebarAppView {
 
     viewProperties.name: "Tick Slider"
 
-    RowLayout {
+    Row {
 
-        spacing: 4
         anchors.fill: parent
 
-        anchors.margins: 10
+        Rectangle {
 
-        SliderSpinBox {
-            id: sliderSpinBox
+            height: parent.height
+            width: parent.width * 0.5
 
-            Layout.fillHeight: true
-            Layout.preferredWidth: 100
+            color: "transparent"
+            border.width: 1
+            border.color: "white"
 
-            name: "Test [kmh]"
+            RowLayout {
 
-            from: -10
-            to: 20
+                spacing: 4
+
+                anchors.fill: parent
+                anchors.margins: 10
+
+                SliderSpinBox {
+                    id: sliderSpinBoxH
+
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: 100
+
+                    name: "Test [kmh]"
+
+                    from: -10
+                    to: 20
+
+                }
+
+                SliderSpinBox {
+                    id: sliderSpinBoxHTwo
+
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: 100
+
+                    name: "Test [kmh]"
+
+                    from: -10
+                    to: 20
+
+                    ticks: [-10, -5, 0, 1, 5.5, 10, 20]
+                    showTicks: true
+                }
+
+                // TickSlider {
+                //     id: tickSliderH
+
+                //     Layout.fillHeight: true
+                //     Layout.preferredWidth: 100
+
+                //     name: "Test"
+                //     unit: "km/h"
+
+                //     from: -10
+                //     to: 20
+
+                //     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
+                // }
+
+
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+            }
 
         }
 
-        SliderSpinBox {
-            id: sliderSpinBoxTwo
+        Rectangle {
 
-            Layout.fillHeight: true
-            Layout.preferredWidth: 100
+            height: parent.height
+            width: parent.width * 0.5
 
-            name: "Test [kmh]"
+            color: "transparent"
+            border.width: 1
+            border.color: "white"
 
-            from: -10
-            to: 20
 
-            ticks: [-10, -5, 0, 1, 5.5, 10, 20]
-            showTicks: true
+
+            ColumnLayout {
+
+                spacing: 4
+
+                anchors.fill: parent
+                anchors.margins: 10
+
+                SliderSpinBox {
+                    id: sliderSpinBoxV
+
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 100
+
+                    alignment: SliderSpinBox.Alignment.Horizontal
+
+                    name: "Test [kmh]"
+
+                    from: -10
+                    to: 20
+
+                }
+
+                SliderSpinBox {
+                    id: sliderSpinBoxVTwo
+
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 100
+
+                    alignment: SliderSpinBox.Alignment.Horizontal
+
+                    name: "Test [kmh]"
+
+                    from: -10
+                    to: 20
+
+                    ticks: [-10, -5, 0, 1, 5.5, 10, 20]
+                    showTicks: true
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+            }
+
         }
 
-        TickSlider {
-            id: tickSlider
 
-            Layout.fillHeight: true
-            Layout.preferredWidth: 100
-
-            name: "Test"
-            unit: "km/h"
-
-            from: -10
-            to: 20
-
-            ticks: [-10, -5, 0, 1, 5.5, 10, 20]
-        }
-
-
-
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
     }
+
+
 }
