@@ -2,3 +2,5 @@ module CommonQml.Misc
 Svg 0.1 Svg.qml
 RotatingLoadingScreen 0.1 RotatingLoadingScreen.qml
 FileFolderSelector 0.1 FileFolderSelector.qml
+TickSlider 0.1 TickSlider.qml
+DoubleSpinBox 0.1 DoubleSpinBox.qml
