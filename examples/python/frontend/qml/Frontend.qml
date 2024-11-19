@@ -23,7 +23,7 @@ ApplicationWindow {
 
         anchors.fill: parent
 
-        defaultView: tickSliderView
+        defaultView: sliderView
 
         StartView {
             id: startView

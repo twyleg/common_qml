@@ -23,6 +23,7 @@ Item {
 
     property alias nameAngle: headerText.rotation
     property bool showTicks: false
+    property bool showTicksOnHover: false
 
     property int alignment: SliderSpinBox.Alignment.Vertical
 
@@ -87,12 +88,18 @@ Item {
             }
 
             Repeater {
+                id: repeater
+
                 model: sliderSpinBox.ticks
 
                 visible: sliderSpinBox.showTicks
 
+                opacity: 0.0
+
                 Item {
                     id: tickmark
+
+                    opacity: repeater.opacity
 
                     width: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical ? parent.width : 10
                     height: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal ? parent.height : 10
@@ -143,8 +150,46 @@ Item {
                     function calcX(v) {
                         return (slider.x + slider.width - slider.rightPadding - width/2.0 - slider.implicitHandleWidth/2.0) - ((slider.width - slider.rightPadding - slider.leftPadding - slider.implicitHandleWidth) / (slider.to - slider.from)) * (v - slider.from)
                     }
-
                 }
+            }
+
+            MouseArea {
+                id: mouseArea
+
+                anchors.fill: parent
+
+                hoverEnabled: true
+                acceptedButtons: Qt.NoButton  // Prevents any button events from being accepted
+
+
+                onEntered: {
+                    console.log("Mouse entered the area")
+                    sliderContainer.fadeIn()
+                }
+                onExited: {
+                    console.log("Mouse exited the area")
+                    sliderContainer.fadeOut()
+                }
+            }
+
+            PropertyAnimation {
+                id: opacityAnimation
+
+                target: repeater
+                property: "opacity"
+                duration: 500
+            }
+
+            function fadeIn() {
+                opacityAnimation.from = repeater.opacity
+                opacityAnimation.to = 1.0
+                opacityAnimation.restart()
+            }
+
+            function fadeOut() {
+                opacityAnimation.from = repeater.opacity
+                opacityAnimation.to = 0.0
+                opacityAnimation.restart()
             }
 
             Component.onCompleted: {

@@ -60,6 +60,22 @@ SidebarAppView {
                     showTicks: true
                 }
 
+                SliderSpinBox {
+                    id: sliderSpinBoxWithTicksHoverH
+
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: 100
+
+                    name: "Test [kmh]"
+
+                    from: -10
+                    to: 20
+
+                    ticks: [-10, -5, 0, 1, 5.5, 10, 20]
+                    showTicks: true
+                    showTicksOnHover: true
+                }
+
                 Item {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
