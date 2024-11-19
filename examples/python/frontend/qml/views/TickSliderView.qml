@@ -19,10 +19,38 @@ SidebarAppView {
 
         anchors.margins: 10
 
-        TickSlider {
+        SliderSpinBox {
+            id: sliderSpinBox
 
             Layout.fillHeight: true
+            Layout.preferredWidth: 100
 
+            name: "Test [kmh]"
+
+            from: -10
+            to: 20
+
+        }
+
+        SliderSpinBox {
+            id: sliderSpinBoxTwo
+
+            Layout.fillHeight: true
+            Layout.preferredWidth: 100
+
+            name: "Test [kmh]"
+
+            from: -10
+            to: 20
+
+            ticks: [-10, -5, 0, 1, 5.5, 10, 20]
+            showTicks: true
+        }
+
+        TickSlider {
+            id: tickSlider
+
+            Layout.fillHeight: true
             Layout.preferredWidth: 100
 
             name: "Test"
@@ -33,6 +61,8 @@ SidebarAppView {
 
             ticks: [-10, -5, 0, 1, 5.5, 10, 20]
         }
+
+
 
         Item {
             Layout.fillHeight: true
