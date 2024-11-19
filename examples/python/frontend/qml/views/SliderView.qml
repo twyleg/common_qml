@@ -46,7 +46,7 @@ SidebarAppView {
                 }
 
                 SliderSpinBox {
-                    id: sliderSpinBoxHTwo
+                    id: sliderSpinBoxWithTicksH
 
                     Layout.fillHeight: true
                     Layout.preferredWidth: 100
@@ -59,23 +59,6 @@ SidebarAppView {
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
                     showTicks: true
                 }
-
-                // TickSlider {
-                //     id: tickSliderH
-
-                //     Layout.fillHeight: true
-                //     Layout.preferredWidth: 100
-
-                //     name: "Test"
-                //     unit: "km/h"
-
-                //     from: -10
-                //     to: 20
-
-                //     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
-                // }
-
-
 
                 Item {
                     Layout.fillHeight: true
@@ -116,10 +99,19 @@ SidebarAppView {
                     from: -10
                     to: 20
 
+                    background: Item {
+                        Rectangle {
+                            height: parent.height * 0.5
+                            width: parent.width
+                            anchors.centerIn: parent
+                            color: "red"
+                        }
+                    }
+
                 }
 
                 SliderSpinBox {
-                    id: sliderSpinBoxVTwo
+                    id: sliderSpinBoxWithTicksV
 
                     Layout.fillWidth: true
                     Layout.preferredHeight: 100

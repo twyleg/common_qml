@@ -6,7 +6,6 @@ import QtQuick.Layouts 1.15
 import CommonQml.Helper 0.1
 
 Item {
-
     id: sliderSpinBox
 
     enum Alignment {
@@ -27,8 +26,11 @@ Item {
 
     property int alignment: SliderSpinBox.Alignment.Vertical
 
+    property Item background: null
+
     GridLayout {
-        id: gridLayout
+        id: layout
+
         anchors.fill: parent
 
         columns: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal ? 3 : 1
@@ -121,11 +123,10 @@ Item {
                     Text {
                         id: tickmarkText
 
-                        anchors.top: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical ? parent.verticalCenter : parent.left
-                        anchors.left: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal ? parent.left : parent.verticalCenter
+                        anchors.top: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical ? parent.verticalCenter : parent.top
+                        anchors.left: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal ? parent.left : parent.horizontalCenter
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
-
 
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
@@ -146,6 +147,13 @@ Item {
                 }
             }
 
+            Component.onCompleted: {
+                if(sliderSpinBox.background) {
+                    sliderSpinBox.background.parent = sliderContainer
+                    sliderSpinBox.background.z = -1
+                    sliderSpinBox.background.anchors.fill = sliderContainer
+                }
+            }
         }
 
         DoubleSpinBox {
@@ -167,13 +175,10 @@ Item {
         }
     }
 
-
-
     function update(value: double) {
         sliderSpinBox.value = value
 
         valueBox.update(value)
         slider.update(value)
     }
-
 }

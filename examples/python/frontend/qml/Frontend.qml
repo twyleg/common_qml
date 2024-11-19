@@ -45,8 +45,8 @@ ApplicationWindow {
             id: loadingScreenView
         }
 
-        TickSliderView {
-            id: tickSliderView
+        SliderView {
+            id: sliderView
         }
 
         SettingsView {
