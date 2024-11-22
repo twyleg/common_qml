@@ -21,6 +21,12 @@ Item {
         updateZones()
     }
 
+    onZonesChanged: {
+        clearZones()
+        initZones()
+        updateZones()
+    }
+
     function pointToPixel(point) {
         var sliderDelta = to - from
 
@@ -48,6 +54,14 @@ Item {
                 console.debug(`Inherited "to" from parent:  ${sliderSpinBoxZonedBackground.to}`)
             }
         }
+    }
+
+    function clearZones() {
+        for(var i=0; i<zoneRectangles.length; i++) {
+            var zoneRectangle = zoneRectangles[i]
+            zoneRectangle.destroy()
+        }
+        zoneRectangles = []
     }
 
     function updateZones() {

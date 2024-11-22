@@ -238,16 +238,39 @@ SidebarAppView {
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
 
                     background: SliderSpinBoxZonedBackground {
+                        id: sliderSpinBoxZonedBackground
 
                         height: sliderSpinBoxWithTicksZonedH.height / 2.0
                         opacity: 0.2
 
                         zones: [
-                            [-10, -5, true],
-                            [-5, 0, false],
-                            [0, 10, true],
-                            [10, 20, false]
+
                         ]
+                    }
+
+                    Timer {
+                        interval: 1000
+                        running: true
+                        repeat: true
+                        onTriggered: {
+                            if(sliderSpinBoxZonedBackground.zones.length < 5 ) {
+                                sliderSpinBoxZonedBackground.zones = [
+                                    [-10, -2, false],
+                                    [-2, 0, true],
+                                    [0, 5, false],
+                                    [5, 10, true],
+                                    [10, 20, false]
+                                ]
+                            } else {
+                                sliderSpinBoxZonedBackground.zones = [
+                                    [-10, -5, true],
+                                    [-5, 0, false],
+                                    [0, 10, true],
+                                    [10, 20, false]
+                                ]
+                            }
+
+                        }
                     }
 
 
