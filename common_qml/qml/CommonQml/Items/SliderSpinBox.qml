@@ -52,8 +52,13 @@ Item {
         Item {
             id: sliderContainer
 
+            property alias alignment: sliderSpinBox.alignment
+            property alias from: sliderSpinBox.from
+            property alias to: sliderSpinBox.to
+
             Layout.fillWidth: true
             Layout.fillHeight: true
+
 
             Slider {
                 id: slider
@@ -150,7 +155,6 @@ Item {
                 if(sliderSpinBox.background) {
                     sliderSpinBox.background.parent = sliderContainer
                     sliderSpinBox.background.z = -1
-                    sliderSpinBox.background.anchors.fill = sliderContainer
                 }
             }
         }

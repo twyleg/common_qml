@@ -97,7 +97,7 @@ SidebarAppView {
                     }
                 }
 
-                SliderSpinBoxZoned {
+                SliderSpinBox {
                     id: sliderSpinBoxWithTicksZonedV
 
                     Layout.fillHeight: true
@@ -110,12 +110,18 @@ SidebarAppView {
 
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
 
-                    zones: [
-                        [-10, -5, true],
-                        [-5, 0, false],
-                        [0, 10, true],
-                        [10, 20, false]
-                    ]
+                    background: SliderSpinBoxZonedBackground {
+
+                        width: sliderSpinBoxWithTicksZonedV.width / 2.0
+                        opacity: 0.2
+
+                        zones: [
+                            [-10, -5, true],
+                            [-5, 0, false],
+                            [0, 10, true],
+                            [10, 20, false]
+                        ]
+                    }
                 }
 
                 Item {
@@ -216,7 +222,7 @@ SidebarAppView {
                     }
                 }
 
-                SliderSpinBoxZoned {
+                SliderSpinBoxFading{
                     id: sliderSpinBoxWithTicksZonedH
 
                     Layout.fillWidth: true
@@ -231,12 +237,20 @@ SidebarAppView {
 
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
 
-                    zones: [
-                        [-10, -5, true],
-                        [-5, 0, false],
-                        [0, 10, true],
-                        [10, 20, false]
-                    ]
+                    background: SliderSpinBoxZonedBackground {
+
+                        height: sliderSpinBoxWithTicksZonedH.height / 2.0
+                        opacity: 0.2
+
+                        zones: [
+                            [-10, -5, true],
+                            [-5, 0, false],
+                            [0, 10, true],
+                            [10, 20, false]
+                        ]
+                    }
+
+
                 }
 
                 Item {
