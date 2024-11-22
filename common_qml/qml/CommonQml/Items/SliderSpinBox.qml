@@ -8,24 +8,17 @@ import CommonQml.Helper 0.1
 Item {
     id: sliderSpinBox
 
-    enum Alignment {
-        Vertical,
-        Horizontal
-    }
-
     property alias name: headerText.text
+    property alias nameAngle: headerText.rotation
 
     property double value: 0
     property double to
     property double from
     property double stepSize: 0.1
     property list<double> ticks
+    property alias ticksOpacity: ticksRepeater.opacity
 
-    property alias nameAngle: headerText.rotation
-    property bool showTicks: false
-    property bool showTicksOnHover: false
-
-    property int alignment: SliderSpinBox.Alignment.Vertical
+    property int alignment: Qt.Vertical
 
     property Item background: null
 
@@ -34,14 +27,14 @@ Item {
 
         anchors.fill: parent
 
-        columns: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal ? 3 : 1
-        rows: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical ? 3 : 1
+        columns: sliderSpinBox.alignment === Qt.Horizontal ? 3 : 1
+        rows: sliderSpinBox.alignment === Qt.Vertical ? 3 : 1
 
         Item {
             id: header
 
-            Layout.fillWidth: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical
-            Layout.fillHeight: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal
+            Layout.fillWidth: sliderSpinBox.alignment === Qt.Vertical
+            Layout.fillHeight: sliderSpinBox.alignment === Qt.Horizontal
 
             height: Math.max(headerText.height, headerText.width)
             width: Math.max(headerText.height, headerText.width)
@@ -67,10 +60,10 @@ Item {
 
                 anchors.top: parent.top
                 anchors.left: parent.left
-                anchors.right: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical && sliderSpinBox.showTicks ? parent.horizontalCenter : parent.right
-                anchors.bottom: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal && sliderSpinBox.showTicks ? parent.verticalCenter : parent.bottom
+                anchors.right: sliderSpinBox.alignment === Qt.Vertical && sliderSpinBox.ticksAvailable() ? parent.horizontalCenter : parent.right
+                anchors.bottom: sliderSpinBox.alignment === Qt.Horizontal && sliderSpinBox.ticksAvailable() ? parent.verticalCenter : parent.bottom
 
-                orientation: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical ? Qt.Vertical : Qt.Horizontal
+                orientation: sliderSpinBox.alignment === Qt.Vertical ? Qt.Vertical : Qt.Horizontal
 
                 from: sliderSpinBox.from
                 to: sliderSpinBox.to
@@ -88,24 +81,24 @@ Item {
             }
 
             Repeater {
-                id: repeater
+                id: ticksRepeater
 
                 model: sliderSpinBox.ticks
 
-                visible: sliderSpinBox.showTicks
+                visible: sliderSpinBox.ticksAvailable()
 
-                opacity: 0.0
+                opacity: 1.0
 
                 Item {
                     id: tickmark
 
-                    opacity: repeater.opacity
+                    opacity: ticksRepeater.opacity
 
-                    width: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical ? parent.width : 10
-                    height: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal ? parent.height : 10
+                    width: sliderSpinBox.alignment === Qt.Vertical ? parent.width : 10
+                    height: sliderSpinBox.alignment === Qt.Horizontal ? parent.height : 10
 
-                    y: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical ? calcY(modelData) : 0
-                    x: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal ? calcX(modelData) : 0
+                    y: sliderSpinBox.alignment === Qt.Vertical ? calcY(modelData) : 0
+                    x: sliderSpinBox.alignment === Qt.Horizontal ? calcX(modelData) : 0
 
                     Rectangle {
                         id: tickmarkLabel
@@ -113,7 +106,7 @@ Item {
                         color: "white"
 
                         Component.onCompleted: {
-                            if(sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical) {
+                            if(sliderSpinBox.alignment === Qt.Vertical) {
                                 anchors.verticalCenter = parent.verticalCenter
                                 anchors.left = parent.left
                                 anchors.right = parent.horizontalCenter
@@ -130,8 +123,8 @@ Item {
                     Text {
                         id: tickmarkText
 
-                        anchors.top: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical ? parent.verticalCenter : parent.top
-                        anchors.left: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal ? parent.left : parent.horizontalCenter
+                        anchors.top: sliderSpinBox.alignment === Qt.Vertical ? parent.verticalCenter : parent.top
+                        anchors.left: sliderSpinBox.alignment === Qt.Horizontal ? parent.left : parent.horizontalCenter
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
 
@@ -153,45 +146,6 @@ Item {
                 }
             }
 
-            MouseArea {
-                id: mouseArea
-
-                anchors.fill: parent
-
-                hoverEnabled: true
-                acceptedButtons: Qt.NoButton  // Prevents any button events from being accepted
-
-
-                onEntered: {
-                    console.log("Mouse entered the area")
-                    sliderContainer.fadeIn()
-                }
-                onExited: {
-                    console.log("Mouse exited the area")
-                    sliderContainer.fadeOut()
-                }
-            }
-
-            PropertyAnimation {
-                id: opacityAnimation
-
-                target: repeater
-                property: "opacity"
-                duration: 500
-            }
-
-            function fadeIn() {
-                opacityAnimation.from = repeater.opacity
-                opacityAnimation.to = 1.0
-                opacityAnimation.restart()
-            }
-
-            function fadeOut() {
-                opacityAnimation.from = repeater.opacity
-                opacityAnimation.to = 0.0
-                opacityAnimation.restart()
-            }
-
             Component.onCompleted: {
                 if(sliderSpinBox.background) {
                     sliderSpinBox.background.parent = sliderContainer
@@ -202,7 +156,7 @@ Item {
         }
 
         DoubleSpinBox {
-            id: valueBox
+            id: spinBox
 
             to: sliderSpinBox.to
             from: sliderSpinBox.from
@@ -210,8 +164,8 @@ Item {
 
             value: sliderSpinBox.value
 
-            Layout.fillWidth: sliderSpinBox.alignment === SliderSpinBox.Alignment.Vertical
-            Layout.fillHeight: sliderSpinBox.alignment === SliderSpinBox.Alignment.Horizontal
+            Layout.fillWidth: sliderSpinBox.alignment === Qt.Vertical
+            Layout.fillHeight: sliderSpinBox.alignment === Qt.Horizontal
 
             Layout.minimumHeight: 50
             Layout.minimumWidth: 50
@@ -223,7 +177,11 @@ Item {
     function update(value: double) {
         sliderSpinBox.value = value
 
-        valueBox.update(value)
+        spinBox.update(value)
         slider.update(value)
+    }
+
+    function ticksAvailable() {
+        return sliderSpinBox.ticks.length > 0
     }
 }

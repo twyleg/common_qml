@@ -33,7 +33,7 @@ SidebarAppView {
                 anchors.margins: 10
 
                 SliderSpinBox {
-                    id: sliderSpinBoxH
+                    id: sliderSpinBoxV
 
                     Layout.fillHeight: true
                     Layout.preferredWidth: 100
@@ -46,7 +46,7 @@ SidebarAppView {
                 }
 
                 SliderSpinBox {
-                    id: sliderSpinBoxWithTicksH
+                    id: sliderSpinBoxWithTicksV
 
                     Layout.fillHeight: true
                     Layout.preferredWidth: 100
@@ -57,11 +57,24 @@ SidebarAppView {
                     to: 20
 
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
-                    showTicks: true
+                }
+
+                SliderSpinBoxFading {
+                    id: sliderSpinBoxWithTicksFadingV
+
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: 100
+
+                    name: "Test [kmh]"
+
+                    from: -10
+                    to: 20
+
+                    ticks: [-10, -5, 0, 1, 5.5, 10, 20]
                 }
 
                 SliderSpinBox {
-                    id: sliderSpinBoxWithTicksHoverH
+                    id: sliderSpinBoxWithTicksCustomBackgroundV
 
                     Layout.fillHeight: true
                     Layout.preferredWidth: 100
@@ -72,8 +85,37 @@ SidebarAppView {
                     to: 20
 
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
-                    showTicks: true
-                    showTicksOnHover: true
+
+                    background: Item {
+                        Rectangle {
+                            height: parent.height
+                            width: parent.width * 0.5
+                            anchors.left: parent.left
+                            color: "red"
+                            opacity: 0.2
+                        }
+                    }
+                }
+
+                SliderSpinBoxZoned {
+                    id: sliderSpinBoxWithTicksZonedV
+
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: 100
+
+                    name: "Test [kmh]"
+
+                    from: -10
+                    to: 20
+
+                    ticks: [-10, -5, 0, 1, 5.5, 10, 20]
+
+                    zones: [
+                        [-10, -5, true],
+                        [-5, 0, false],
+                        [0, 10, true],
+                        [10, 20, false]
+                    ]
                 }
 
                 Item {
@@ -103,36 +145,26 @@ SidebarAppView {
                 anchors.margins: 10
 
                 SliderSpinBox {
-                    id: sliderSpinBoxV
+                    id: sliderSpinBoxH
 
                     Layout.fillWidth: true
                     Layout.preferredHeight: 100
 
-                    alignment: SliderSpinBox.Alignment.Horizontal
+                    alignment: Qt.Horizontal
 
                     name: "Test [kmh]"
 
                     from: -10
                     to: 20
-
-                    background: Item {
-                        Rectangle {
-                            height: parent.height * 0.5
-                            width: parent.width
-                            anchors.centerIn: parent
-                            color: "red"
-                        }
-                    }
-
                 }
 
                 SliderSpinBox {
-                    id: sliderSpinBoxWithTicksV
+                    id: sliderSpinBoxWithTicksH
 
                     Layout.fillWidth: true
                     Layout.preferredHeight: 100
 
-                    alignment: SliderSpinBox.Alignment.Horizontal
+                    alignment: Qt.Horizontal
 
                     name: "Test [kmh]"
 
@@ -140,7 +172,71 @@ SidebarAppView {
                     to: 20
 
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
-                    showTicks: true
+                }
+
+                SliderSpinBoxFading {
+                    id: sliderSpinBoxWithTicksFadingH
+
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 100
+
+                    alignment: Qt.Horizontal
+
+                    name: "Test [kmh]"
+
+                    from: -10
+                    to: 20
+
+                    ticks: [-10, -5, 0, 1, 5.5, 10, 20]
+                }
+
+                SliderSpinBox {
+                    id: sliderSpinBoxWithTicksDynamicBackgroundH
+
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 100
+
+                    alignment: Qt.Horizontal
+
+                    name: "Test [kmh]"
+
+                    from: -10
+                    to: 20
+
+                    ticks: [-10, -5, 0, 1, 5.5, 10, 20]
+
+                    background: Item {
+                        Rectangle {
+                            height: parent.height * 0.5
+                            width: parent.width
+                            anchors.top: parent.top
+                            color: "red"
+                            opacity: 0.2
+                        }
+                    }
+                }
+
+                SliderSpinBoxZoned {
+                    id: sliderSpinBoxWithTicksZonedH
+
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 100
+
+                    alignment: Qt.Horizontal
+
+                    name: "Test [kmh]"
+
+                    from: -10
+                    to: 20
+
+                    ticks: [-10, -5, 0, 1, 5.5, 10, 20]
+
+                    zones: [
+                        [-10, -5, true],
+                        [-5, 0, false],
+                        [0, 10, true],
+                        [10, 20, false]
+                    ]
                 }
 
                 Item {
