@@ -1,4 +1,5 @@
 # Copyright (C) 2024 twyleg
+import sys
 import argparse
 import logging
 from pathlib import Path
@@ -11,6 +12,7 @@ FILE_DIR = Path(__file__).parent
 
 class QmlApplicationCounterExample(QmlApplication):
     def __init__(self):
+        # sys.argv += ["--style", "Material"]
         super().__init__(
             application_name="simple_counter_app_qml_example",
             version="0.0.1",

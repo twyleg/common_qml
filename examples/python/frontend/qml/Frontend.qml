@@ -23,7 +23,7 @@ ApplicationWindow {
 
         anchors.fill: parent
 
-        defaultView: fileOpenerView
+        defaultView: sliderView
 
         StartView {
             id: startView
@@ -43,6 +43,10 @@ ApplicationWindow {
 
         LoadingScreenView {
             id: loadingScreenView
+        }
+
+        SliderView {
+            id: sliderView
         }
 
         SettingsView {
