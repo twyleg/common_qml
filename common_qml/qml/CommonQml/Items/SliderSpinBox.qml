@@ -21,6 +21,8 @@ Item {
     property int alignment: Qt.Vertical
 
     property Item background: null
+    property alias backgroundWidth: sliderContainer.width
+    property alias backgroundHeight: sliderContainer.height
 
     GridLayout {
         id: layout

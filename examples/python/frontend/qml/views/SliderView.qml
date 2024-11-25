@@ -13,11 +13,9 @@ SidebarAppView {
     viewProperties.name: "Tick Slider"
 
     Row {
-
         anchors.fill: parent
 
         Rectangle {
-
             height: parent.height
             width: parent.width * 0.5
 
@@ -26,7 +24,6 @@ SidebarAppView {
             border.color: "white"
 
             RowLayout {
-
                 spacing: 4
 
                 anchors.fill: parent
@@ -42,7 +39,6 @@ SidebarAppView {
 
                     from: -10
                     to: 20
-
                 }
 
                 SliderSpinBox {
@@ -98,7 +94,7 @@ SidebarAppView {
                 }
 
                 SliderSpinBox {
-                    id: sliderSpinBoxWithTicksZonedV
+                    id: sliderSpinBoxWithTicksHighlightedV
 
                     Layout.fillHeight: true
                     Layout.preferredWidth: 100
@@ -110,12 +106,12 @@ SidebarAppView {
 
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
 
-                    background: SliderSpinBoxZonedBackground {
+                    background: SliderSpinBoxHighlightedBackground {
 
-                        width: sliderSpinBoxWithTicksZonedV.width / 2.0
+                        width: sliderSpinBoxWithTicksHighlightedV.width / 2.0
                         opacity: 0.2
 
-                        zones: [
+                        highlights: [
                             [-10, -5, true],
                             [-5, 0, false],
                             [0, 10, true],
@@ -129,19 +125,15 @@ SidebarAppView {
                     Layout.fillWidth: true
                 }
             }
-
         }
 
         Rectangle {
-
             height: parent.height
             width: parent.width * 0.5
 
             color: "transparent"
             border.width: 1
             border.color: "white"
-
-
 
             ColumnLayout {
 
@@ -197,7 +189,7 @@ SidebarAppView {
                 }
 
                 SliderSpinBox {
-                    id: sliderSpinBoxWithTicksDynamicBackgroundH
+                    id: sliderSpinBoxWithTicksColoredBackgroundH
 
                     Layout.fillWidth: true
                     Layout.preferredHeight: 100
@@ -213,9 +205,8 @@ SidebarAppView {
 
                     background: Item {
                         Rectangle {
-                            height: parent.height * 0.5
-                            width: parent.width
-                            anchors.top: parent.top
+                            height: sliderSpinBoxWithTicksColoredBackgroundH.backgroundHeight / 2.0
+                            width: sliderSpinBoxWithTicksColoredBackgroundH.backgroundWidth
                             color: "red"
                             opacity: 0.2
                         }
@@ -223,7 +214,7 @@ SidebarAppView {
                 }
 
                 SliderSpinBoxFading{
-                    id: sliderSpinBoxWithTicksZonedH
+                    id: sliderSpinBoxWithTicksHighlightedBackgroundH
 
                     Layout.fillWidth: true
                     Layout.preferredHeight: 100
@@ -237,15 +228,13 @@ SidebarAppView {
 
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
 
-                    background: SliderSpinBoxZonedBackground {
-                        id: sliderSpinBoxZonedBackground
+                    background: SliderSpinBoxHighlightedBackground {
+                        id: sliderSpinBoxHighlightedBackground
 
-                        height: sliderSpinBoxWithTicksZonedH.height / 2.0
+                        height: sliderSpinBoxWithTicksHighlightedBackgroundH.height / 2.0
                         opacity: 0.2
 
-                        zones: [
-
-                        ]
+                        highlights: []
                     }
 
                     Timer {
@@ -253,8 +242,8 @@ SidebarAppView {
                         running: true
                         repeat: true
                         onTriggered: {
-                            if(sliderSpinBoxZonedBackground.zones.length < 5 ) {
-                                sliderSpinBoxZonedBackground.zones = [
+                            if(sliderSpinBoxHighlightedBackground.highlights.length < 5 ) {
+                                sliderSpinBoxHighlightedBackground.highlights = [
                                     [-10, -2, false],
                                     [-2, 0, true],
                                     [0, 5, false],
@@ -262,18 +251,15 @@ SidebarAppView {
                                     [10, 20, false]
                                 ]
                             } else {
-                                sliderSpinBoxZonedBackground.zones = [
+                                sliderSpinBoxHighlightedBackground.highlights = [
                                     [-10, -5, true],
                                     [-5, 0, false],
                                     [0, 10, true],
                                     [10, 20, false]
                                 ]
                             }
-
                         }
                     }
-
-
                 }
 
                 Item {
@@ -281,11 +267,6 @@ SidebarAppView {
                     Layout.fillWidth: true
                 }
             }
-
         }
-
-
     }
-
-
 }

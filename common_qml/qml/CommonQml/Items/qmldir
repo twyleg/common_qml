@@ -5,4 +5,4 @@ FileFolderSelector 0.1 FileFolderSelector.qml
 DoubleSpinBox 0.1 DoubleSpinBox.qml
 SliderSpinBox 0.1 SliderSpinBox.qml
 SliderSpinBoxFading 0.1 SliderSpinBoxFading.qml
-SliderSpinBoxZonedBackground 0.1 SliderSpinBoxZonedBackground.qml
+SliderSpinBoxHighlightedBackground 0.1 SliderSpinBoxHighlightedBackground.qml
