@@ -33,7 +33,7 @@ SidebarAppView {
                     id: sliderSpinBoxV
 
                     Layout.fillHeight: true
-                    Layout.preferredWidth: 100
+                    Layout.preferredWidth: 200
 
                     name: "Test [kmh]"
 
@@ -45,7 +45,7 @@ SidebarAppView {
                     id: sliderSpinBoxWithTicksV
 
                     Layout.fillHeight: true
-                    Layout.preferredWidth: 100
+                    Layout.preferredWidth: 200
 
                     name: "Test [kmh]"
 
@@ -59,7 +59,7 @@ SidebarAppView {
                     id: sliderSpinBoxWithTicksFadingV
 
                     Layout.fillHeight: true
-                    Layout.preferredWidth: 100
+                    Layout.preferredWidth: 200
 
                     name: "Test [kmh]"
 
@@ -73,7 +73,7 @@ SidebarAppView {
                     id: sliderSpinBoxWithTicksCustomBackgroundV
 
                     Layout.fillHeight: true
-                    Layout.preferredWidth: 100
+                    Layout.preferredWidth: 200
 
                     name: "Test [kmh]"
 
@@ -84,9 +84,8 @@ SidebarAppView {
 
                     background: Item {
                         Rectangle {
-                            height: parent.height
-                            width: parent.width * 0.5
-                            anchors.left: parent.left
+                            height: sliderSpinBoxWithTicksCustomBackgroundV.backgroundHeight
+                            width: sliderSpinBoxWithTicksCustomBackgroundV.backgroundWidth / 2.0
                             color: "red"
                             opacity: 0.2
                         }
@@ -97,7 +96,7 @@ SidebarAppView {
                     id: sliderSpinBoxWithTicksHighlightedV
 
                     Layout.fillHeight: true
-                    Layout.preferredWidth: 100
+                    Layout.preferredWidth: 200
 
                     name: "Test [kmh]"
 
@@ -107,8 +106,10 @@ SidebarAppView {
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
 
                     background: SliderSpinBoxHighlightedBackground {
+                        id: sliderSpinBoxHighlightedBackground
 
-                        width: sliderSpinBoxWithTicksHighlightedV.width / 2.0
+                        height: sliderSpinBoxWithTicksHighlightedV.backgroundHeight
+                        width: sliderSpinBoxWithTicksHighlightedV.backgroundWidth / 2.0
                         opacity: 0.2
 
                         highlights: [
@@ -117,6 +118,31 @@ SidebarAppView {
                             [0, 10, true],
                             [10, 20, false]
                         ]
+
+                    }
+
+                    Timer {
+                        interval: 1000
+                        running: true
+                        repeat: true
+                        onTriggered: {
+                            if(sliderSpinBoxHighlightedBackground.highlights.length < 5 ) {
+                                sliderSpinBoxHighlightedBackground.highlights = [
+                                    [-10, -2, false],
+                                    [-2, 0, true],
+                                    [0, 5, false],
+                                    [5, 10, true],
+                                    [10, 20, false]
+                                ]
+                            } else {
+                                sliderSpinBoxHighlightedBackground.highlights = [
+                                    [-10, -5, true],
+                                    [-5, 0, false],
+                                    [0, 10, true],
+                                    [10, 20, false]
+                                ]
+                            }
+                        }
                     }
                 }
 
@@ -146,7 +172,7 @@ SidebarAppView {
                     id: sliderSpinBoxH
 
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 100
+                    Layout.preferredHeight: 200
 
                     alignment: Qt.Horizontal
 
@@ -160,7 +186,7 @@ SidebarAppView {
                     id: sliderSpinBoxWithTicksH
 
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 100
+                    Layout.preferredHeight: 200
 
                     alignment: Qt.Horizontal
 
@@ -176,7 +202,7 @@ SidebarAppView {
                     id: sliderSpinBoxWithTicksFadingH
 
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 100
+                    Layout.preferredHeight: 200
 
                     alignment: Qt.Horizontal
 
@@ -192,7 +218,7 @@ SidebarAppView {
                     id: sliderSpinBoxWithTicksColoredBackgroundH
 
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 100
+                    Layout.preferredHeight: 200
 
                     alignment: Qt.Horizontal
 
@@ -217,7 +243,7 @@ SidebarAppView {
                     id: sliderSpinBoxWithTicksHighlightedBackgroundH
 
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 100
+                    Layout.preferredHeight: 200
 
                     alignment: Qt.Horizontal
 
@@ -229,12 +255,18 @@ SidebarAppView {
                     ticks: [-10, -5, 0, 1, 5.5, 10, 20]
 
                     background: SliderSpinBoxHighlightedBackground {
-                        id: sliderSpinBoxHighlightedBackground
+                        id: sliderSpinBoxHighlightedBackgroundH
 
-                        height: sliderSpinBoxWithTicksHighlightedBackgroundH.height / 2.0
+                        height: sliderSpinBoxWithTicksHighlightedBackgroundH.backgroundHeight / 2.0
                         opacity: 0.2
 
-                        highlights: []
+                        highlights: [
+                            [-10, -2, false],
+                            [-2, 0, true],
+                            [0, 5, false],
+                            [5, 10, true],
+                            [10, 20, false]
+                        ]
                     }
 
                     Timer {
@@ -242,8 +274,8 @@ SidebarAppView {
                         running: true
                         repeat: true
                         onTriggered: {
-                            if(sliderSpinBoxHighlightedBackground.highlights.length < 5 ) {
-                                sliderSpinBoxHighlightedBackground.highlights = [
+                            if(sliderSpinBoxHighlightedBackgroundH.highlights.length < 5 ) {
+                                sliderSpinBoxHighlightedBackgroundH.highlights = [
                                     [-10, -2, false],
                                     [-2, 0, true],
                                     [0, 5, false],
@@ -251,7 +283,7 @@ SidebarAppView {
                                     [10, 20, false]
                                 ]
                             } else {
-                                sliderSpinBoxHighlightedBackground.highlights = [
+                                sliderSpinBoxHighlightedBackgroundH.highlights = [
                                     [-10, -5, true],
                                     [-5, 0, false],
                                     [0, 10, true],

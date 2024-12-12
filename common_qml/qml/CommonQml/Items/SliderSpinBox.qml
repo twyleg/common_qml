@@ -20,6 +20,10 @@ Item {
 
     property int alignment: Qt.Vertical
 
+    property alias header: header
+    property alias slider: slider
+    property alias spinBox: spinBox
+
     property Item background: null
     property alias backgroundWidth: sliderContainer.width
     property alias backgroundHeight: sliderContainer.height
@@ -57,10 +61,10 @@ Item {
             property alias alignment: sliderSpinBox.alignment
             property alias from: sliderSpinBox.from
             property alias to: sliderSpinBox.to
+            property alias slider: slider
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-
 
             Slider {
                 id: slider
@@ -78,11 +82,26 @@ Item {
                 stepSize: sliderSpinBox.stepSize
                 live: false
 
+                bottomPadding: 0
+                topPadding: 0
+                leftPadding: 0
+                rightPadding: 0
+
+                anchors.margins: 0
+
                 onValueChanged: sliderSpinBox.update(value)
 
                 function update(newValue: double) {
                     if(Math.abs(value - newValue) >= stepSize * 0.9) {
                         value = newValue
+                    }
+                }
+
+                function pixelFromValue(v) {
+                    if (alignment === Qt.Vertical) {
+                        return height - (bottomPadding + implicitHandleHeight/2.0 + ((height - bottomPadding - topPadding - implicitHandleHeight) / (to - from)) * (v - from))
+                    } else {
+                        return (leftPadding + implicitHandleWidth/2.0 + ((width - rightPadding - leftPadding - implicitHandleWidth) / (to - from)) * (v - from))
                     }
                 }
             }
@@ -101,11 +120,11 @@ Item {
 
                     opacity: ticksRepeater.opacity
 
-                    width: sliderSpinBox.alignment === Qt.Vertical ? parent.width : 10
-                    height: sliderSpinBox.alignment === Qt.Horizontal ? parent.height : 10
+                    width: sliderSpinBox.alignment === Qt.Vertical ? parent.width : 1
+                    height: sliderSpinBox.alignment === Qt.Horizontal ? parent.height : 1
 
-                    y: sliderSpinBox.alignment === Qt.Vertical ? calcY(modelData) : 0
-                    x: sliderSpinBox.alignment === Qt.Horizontal ? calcX(modelData) : 0
+                    y: sliderSpinBox.alignment === Qt.Vertical ? slider.pixelFromValue(modelData) : 0
+                    x: sliderSpinBox.alignment === Qt.Horizontal ? slider.pixelFromValue(modelData) : 0
 
                     Rectangle {
                         id: tickmarkLabel
@@ -114,12 +133,12 @@ Item {
 
                         Component.onCompleted: {
                             if(sliderSpinBox.alignment === Qt.Vertical) {
-                                anchors.verticalCenter = parent.verticalCenter
+                                anchors.verticalCenter = parent.verticalTop
                                 anchors.left = parent.left
                                 anchors.right = parent.horizontalCenter
                                 height = 1
                             } else {
-                                anchors.horizontalCenter = parent.horizontalCenter
+                                anchors.horizontalCenter = parent.horizontalLeft
                                 anchors.top = parent.top
                                 anchors.bottom = parent.verticalCenter
                                 width = 1
@@ -142,14 +161,6 @@ Item {
                         color: "white"
                         text:  "%1".arg(modelData)
                     }
-
-                    function calcY(v) {
-                        return (slider.y + slider.height - slider.bottomPadding - height/2.0 - slider.implicitHandleHeight/2.0) - ((slider.height - slider.bottomPadding - slider.topPadding - slider.implicitHandleHeight) / (slider.to - slider.from)) * (v - slider.from)
-                    }
-
-                    function calcX(v) {
-                        return (slider.x + slider.width - slider.rightPadding - width/2.0 - slider.implicitHandleWidth/2.0) - ((slider.width - slider.rightPadding - slider.leftPadding - slider.implicitHandleWidth) / (slider.to - slider.from)) * (v - slider.from)
-                    }
                 }
             }
 
@@ -170,11 +181,11 @@ Item {
 
             value: sliderSpinBox.value
 
-            Layout.fillWidth: sliderSpinBox.alignment === Qt.Vertical
-            Layout.fillHeight: sliderSpinBox.alignment === Qt.Horizontal
+            // Layout.fillWidth: sliderSpinBox.alignment === Qt.Vertical
+            // Layout.fillHeight: sliderSpinBox.alignment === Qt.Horizontal
 
             Layout.minimumHeight: 50
-            Layout.minimumWidth: 50
+            Layout.minimumWidth: 200
 
             onValueChanged: sliderSpinBox.update(value)
         }

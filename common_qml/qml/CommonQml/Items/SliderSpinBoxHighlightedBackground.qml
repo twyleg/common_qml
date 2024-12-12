@@ -22,21 +22,7 @@ Item {
     }
 
     onHighlightsChanged: {
-        clearHighlights()
-        initHighlights()
         updateHighlights()
-    }
-
-    function pointToPixel(point) {
-        var sliderDelta = to - from
-
-        if(alignment === Qt.Vertical) {
-            var factor = height / sliderDelta
-            return height - (point - from) * factor
-        } else {
-            var factor = width / sliderDelta
-            return (point - from) * factor
-        }
     }
 
     function tryToInheritParametersFromParent() {
@@ -56,52 +42,11 @@ Item {
         }
     }
 
-    function clearHighlights() {
-        for(var i=0; i<highlightRectangles.length; i++) {
-            var hightlightRectangle = highlightRectangles[i]
-            hightlightRectangle.destroy()
-        }
-        highlightRectangles = []
-    }
-
-    function updateHighlights() {
-
-        if (highlights.length !== highlightRectangles.length) {
-            return
-        }
-
-        for(var i=0; i<highlights.length; i++) {
-            var highlight = highlights[i]
-            var highlightRectangle = highlightRectangles[i]
-
-            var from = highlight[0]
-            var to = highlight[1]
-
-            var pixelFrom = pointToPixel(from)
-            var pixelTo = pointToPixel(to)
-
-            if(alignment === Qt.Vertical) {
-                var height = pixelFrom - pixelTo
-                highlightRectangle.y = pixelFrom - height
-                highlightRectangle.height = height
-
-                highlightRectangle.anchors.left = left
-                highlightRectangle.anchors.right = right
-            } else if(alignment === Qt.Horizontal){
-                highlightRectangle.x = pixelFrom
-                highlightRectangle.width = pixelTo - pixelFrom
-
-                highlightRectangle.anchors.top = top
-                highlightRectangle.anchors.bottom = bottom
-            }
-        }
-    }
-
     function initHighlights() {
 
         for(var i=0; i<highlights.length; i++) {
-            var zone = highlights[i]
-            var value = zone[2]
+            var highlight = highlights[i]
+            var value = highlight[2]
 
             var component =  Qt.createComponent("QtQuick", "Rectangle", Component.PreferSynchronous, sliderSpinBoxHighlightedBackground)
             var obj = component.createObject(sliderSpinBoxHighlightedBackground, {
@@ -112,7 +57,52 @@ Item {
         }
     }
 
+    function clearHighlights() {
+        for(var i=0; i<highlightRectangles.length; i++) {
+            var hightlightRectangle = highlightRectangles[i]
+            hightlightRectangle.destroy()
+        }
+        highlightRectangles = []
+    }
+
+    function updateHighlights() {
+
+        if (parent) {
+            if (highlights.length !== highlightRectangles.length) {
+                clearHighlights()
+                initHighlights()
+            }
+
+            for(var i=0; i<highlights.length; i++) {
+                var highlight = highlights[i]
+                var highlightRectangle = highlightRectangles[i]
+
+                var from = highlight[0]
+                var to = highlight[1]
+
+                var pixelFrom = parent.slider.pixelFromValue(from)
+                var pixelTo = parent.slider.pixelFromValue(to)
+
+                if(alignment === Qt.Vertical) {
+                    var height = pixelFrom - pixelTo
+                    highlightRectangle.y = pixelTo
+                    highlightRectangle.height = height
+
+                    highlightRectangle.anchors.left = left
+                    highlightRectangle.anchors.right = right
+                } else if(alignment === Qt.Horizontal){
+                    highlightRectangle.x = pixelFrom
+                    highlightRectangle.width = pixelTo - pixelFrom
+
+                    highlightRectangle.anchors.top = top
+                    highlightRectangle.anchors.bottom = bottom
+                }
+            }
+        }
+    }
+
     Component.onCompleted: {
+        tryToInheritParametersFromParent()
         initHighlights()
         updateHighlights()
     }
