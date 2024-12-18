@@ -17,6 +17,10 @@ RowLayout {
     property alias value: valueTextEdit.text
     property int type:  FileFolderSelector.Type.File
 
+    property alias headlineTextItem: headlineText
+    property alias valueTextEditItem: valueTextEdit
+    property alias buttonItem: button
+
     property int fontPointSize: 12
 
     Text {
@@ -24,7 +28,6 @@ RowLayout {
 
         color: "white"
         font.pointSize: parent.fontPointSize
-
     }
 
     Rectangle {
@@ -53,7 +56,7 @@ RowLayout {
     }
 
     Button {
-        id: fileButton
+        id: button
 
         Layout.fillHeight: true
 
