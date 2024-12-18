@@ -30,6 +30,9 @@ SidebarAppView {
             Layout.fillWidth: true
             Layout.fillHeight: false
 
+            headlineTextItem.Layout.preferredWidth: 120
+            headlineTextItem.horizontalAlignment: Text.AlignRight
+
         }
 
         FileFolderSelector {
@@ -40,6 +43,9 @@ SidebarAppView {
 
             Layout.fillWidth: true
             Layout.fillHeight: false
+
+            headlineTextItem.Layout.preferredWidth: 120
+            headlineTextItem.horizontalAlignment: Text.AlignRight
 
         }
 
